@@ -4,3 +4,4 @@ zImage
 *.zip
 dtb
 *.dtbo
+.wireguard-fetch-lock
