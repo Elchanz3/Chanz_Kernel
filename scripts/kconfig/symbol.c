@@ -1089,14 +1089,20 @@ static struct dep_stack {
 	struct expr *expr;
 } *check_top;
 
-static void dep_stack_insert(struct dep_stack *stack, struct symbol *sym)
+static void dep_stack_insert(struct dep_stack **stack, struct symbol *sym)
 {
-	memset(stack, 0, sizeof(*stack));
-	if (check_top)
-		check_top->next = stack;
-	stack->prev = check_top;
-	stack->sym = sym;
-	check_top = stack;
+    *stack = malloc(sizeof(struct dep_stack));
+    if (*stack == NULL) {
+        // Tratar erro de alocação de memória
+        return;
+    }
+    memset(*stack, 0, sizeof(struct dep_stack));
+    (*stack)->sym = sym;
+    
+    if (check_top)
+        check_top->next = *stack;
+    (*stack)->prev = check_top;
+    check_top = *stack;
 }
 
 static void dep_stack_remove(void)
