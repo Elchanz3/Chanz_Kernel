@@ -1,0 +1,6 @@
+
+out/
+zImage
+*.zip
+dtb
+*.dtbo
